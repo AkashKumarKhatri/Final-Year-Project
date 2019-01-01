@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient_Bill" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="dfc581de-5716-4d9f-847c-3323c1f038d8">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="200"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="791"/>
+	<parameter name="apId" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT p.name AS 'Patient Name', ap.date AS 'Appointment Date',  r.room_no AS 'Room #No', rt.room_type_name AS 'Room Type', ra.alotment_date AS 'Alotment Date', ra.discharge_date AS 'Discharge Date', rt.charges AS 'Per Day', 
+ DATEDIFF(ra.discharge_date,ra.alotment_date) AS 'Total Days',DATEDIFF(ra.discharge_date,ra.alotment_date) 
+ * rt.charges AS 'Total Charges',ra.fees as 'Fees Status',ap.date as 'Appointment Date', d.fees as 'Fees',ap.fees_status as 'Fees Appointment' FROM room_alotment ra 
+ INNER JOIN rooms r ON ra.room_id = r.room_id INNER JOIN room_type rt ON r.room_type_id = rt.room_type_id 
+  INNER JOIN appointments ap ON ra.appointment_id = ap.appointment_id inner join employees d on ap.doctor_id 
+   = d.employee_id  INNER JOIN patients p ON ap.`patient_id` = p.`patient_id` WHERE ap.appointment_id =  $P{apId} ]]>
+	</queryString>
+	<field name="Patient Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Patient Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patients"/>
+	</field>
+	<field name="Appointment Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Appointment Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="appointments"/>
+	</field>
+	<field name="Room #No" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Room #No"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rooms"/>
+	</field>
+	<field name="Room Type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Room Type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_type"/>
+	</field>
+	<field name="Alotment Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Alotment Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_alotment"/>
+	</field>
+	<field name="Discharge Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Discharge Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_alotment"/>
+	</field>
+	<field name="Per Day" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Per Day"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_type"/>
+	</field>
+	<field name="Total Days" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Total Days"/>
+	</field>
+	<field name="Total Charges" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="Total Charges"/>
+	</field>
+	<field name="Fees Status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Fees Status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_alotment"/>
+	</field>
+	<field name="COLUMN_11" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Appointment Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="appointments"/>
+	</field>
+	<field name="Fees" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Fees"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+	</field>
+	<field name="Fees Appointment" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Fees Appointment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="appointments"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="68" splitType="Stretch">
+			<image>
+				<reportElement x="182" y="10" width="190" height="42" uuid="eab766ba-d63e-43bc-937f-d008993d06b2"/>
+				<imageExpression><![CDATA["C:/Users/Akash/Desktop/e-health-caps-new.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="-19" y="1" width="594" height="19" forecolor="rgba(204, 204, 204, 0.0)" backcolor="#22D6E3" uuid="547a741d-3a4b-4e1c-93a8-f6c5abbe2365"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-20" y="1" width="595" height="19" forecolor="#FFFFFF" uuid="ca6d1422-c92c-4588-a67a-1cc6d56850bd"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[       Room Alotment Charges]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="50" height="20" uuid="62045e0a-04cc-4780-9a69-37b6930f03fc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bdbc565c-bd5d-476e-87bc-21c2c19856cb"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Room #No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="0" width="103" height="20" uuid="c93d8432-1b4b-4a39-853c-a9f651527671">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aed37135-0aa8-44dd-be26-17dff03db513"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Room Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="0" width="70" height="20" uuid="34ea2e02-2591-448c-a929-c64eb252366e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0e490851-a890-415c-9d68-72b494466c13"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Alotment Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="0" width="70" height="20" uuid="499872de-b7fd-4e8f-b3e5-32e3a948743e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c32a948f-e0c9-45e1-813b-b692edb9db32"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Discharge Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="294" y="0" width="70" height="20" uuid="85379385-fada-4ecd-9fb4-644c1cd55989">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0dedd23a-76ca-4034-a6f1-05640bd42c7d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Per Day]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="0" width="70" height="20" uuid="ab899dc5-deb9-4756-ad84-8339ef51d665">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="55285c90-624f-4baf-9538-ca44d640bc3b"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Total Days]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="0" width="70" height="20" uuid="f9cd8ac7-5992-4ad1-8053-3bb71af81006">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="863130b0-84ca-45c6-8e37-9d80a7ec90b3"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Total Charges]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="505" y="0" width="70" height="20" uuid="410e8a28-8b9e-44b4-a799-94313f40e745">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d63a427e-734a-48ba-966f-42f5ba39fe4a"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Fees Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="50" height="30" uuid="a6d81aa2-f580-4112-84d6-9b7804af7cf8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bdbc565c-bd5d-476e-87bc-21c2c19856cb"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Room #No}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="0" width="103" height="30" uuid="12b3aded-641e-42a7-a1e1-432f2eabec51">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aed37135-0aa8-44dd-be26-17dff03db513"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Room Type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="0" width="70" height="30" uuid="bed9829c-c03c-4843-8e12-caefc9c99e53">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0e490851-a890-415c-9d68-72b494466c13"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Alotment Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="153" y="0" width="70" height="30" uuid="7ca4fe78-3118-4a64-9bd2-01dcad5d5e3d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c32a948f-e0c9-45e1-813b-b692edb9db32"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Discharge Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="0" width="70" height="30" uuid="c9ac65c2-b75f-44bb-8333-8b83e63b4125">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0dedd23a-76ca-4034-a6f1-05640bd42c7d"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Per Day}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="365" y="0" width="70" height="30" uuid="fa39f5a7-fb4c-47bb-a7a0-ac4d63a47eca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="55285c90-624f-4baf-9538-ca44d640bc3b"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Total Days}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="0" width="70" height="30" uuid="8a427a45-a186-4b25-804f-688c4fa1df17">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="863130b0-84ca-45c6-8e37-9d80a7ec90b3"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Total Charges}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="0" width="70" height="30" uuid="a7bcbb18-4f27-481a-9b39-2f573d2e1d09">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d63a427e-734a-48ba-966f-42f5ba39fe4a"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Fees Status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="51" splitType="Stretch">
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="-20" y="0" width="594" height="10" forecolor="rgba(204, 204, 204, 0.0)" backcolor="#22D6E3" uuid="6dd0f518-9258-40d8-b901-01e559c85062"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-20" y="10" width="595" height="19" forecolor="#000000" uuid="ff033bc4-5688-402b-9285-11231e3041ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[03471238549 - 03332765844]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-20" y="30" width="595" height="19" forecolor="#000000" uuid="24a9c436-37e7-4ad0-9ae4-6cee36261f08"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[This is computer generated report.Doesnot need any signature]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="40" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
